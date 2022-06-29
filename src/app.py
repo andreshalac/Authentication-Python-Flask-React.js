@@ -12,12 +12,13 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
-
+# from flask_bcrypt import Bcrypt
 
 
 app = Flask(__name__)
-
-
+# bcrypt = Bcrypt(app)
+# pw_hash = bcrypt.generate_password_hash('hunter2')
+# bcrypt.check_password_hash(pw_hash, 'hunter2') # returns True
 #from models import Person
 
 ENV = os.getenv("FLASK_ENV")
@@ -25,7 +26,7 @@ static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../
 app.url_map.strict_slashes = False
 
 # Setup the Flask-JWT-Extended extension
-app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET', 'sample key') #funcion definida en admin. JWT_SECRET definido en archivo .env
+app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET') #funcion definida en admin. JWT_SECRET definido en archivo .env
 jwt = JWTManager(app)
 
 # database condiguration

@@ -7,11 +7,12 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token, get_jwt_identity,jwt_required
+import json
 
 
 
 api = Blueprint('api', __name__)
-
+# bcrypt = Bcrypt(api)
 
 
 
@@ -23,6 +24,26 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+    
+
+@api.route('/user', methods=['POST'])
+def add_new_useer():
+
+    body = json.loads(request.data)
+    
+    user = User(name = body["name"], email=body["email"], password=body["password"])
+    db.session.add(user)
+    db.session.commit()
+
+    response_body = {
+        "msg": "user created"
+    }
+
+    return jsonify(response_body), 200
+
+
+
 
 
 # Create a route to authenticate your users and return JWTs. The

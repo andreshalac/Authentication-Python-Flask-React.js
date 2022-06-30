@@ -43,22 +43,58 @@ def add_new_useer():
     return jsonify(response_body), 200
 
 
+# Delete User
 
+@api.route('/userr/<int:int_name>', methods=['DELETE'])
+def delete_user(int_name):
+    usuario = User.query.filter_by(name= int_name).first()
+    # print(usuario)
+    db.session.delete(usuario)
+    db.session.commit()
+
+    response_body = {
+        "msg": "user deleted"
+    }
+
+    return jsonify(response_body), 200
 
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/login", methods=["POST"])
 def login():
+    
+    # name = request.json.get("name", None)
     email = request.json.get("email", None)
     password = request.json.get("password", None)
     user = User.query.filter_by(email=email).first()
-    print(user.email)
-    if email != user.email or password != user.password:
-        return jsonify({"msg": "Bad username or password"}), 401
+    user_by_name = User.query.filter_by(name=email).first()
+
+
+    if user :
+        if email != user.email  or password != user.password:
+            return jsonify({"msg": "Bad username or password"}), 401
+        
+        access_token={
+            "token": create_access_token(identity=email),
+            "name": user.name
+        }
+
+    print(user_by_name)
+    if user_by_name:
+        if email != user_by_name.name  or password != user_by_name.password:
+            return jsonify({"msg": "Bad username or password"}), 401
+        
+        access_token={
+            "token": create_access_token(identity=email),
+            "name": user_by_name.name
+        }
+
+
 
     
-    access_token = create_access_token(identity=email)
+
+
     return jsonify(access_token=access_token)
 
 

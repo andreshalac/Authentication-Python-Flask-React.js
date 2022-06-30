@@ -45,13 +45,33 @@ def add_new_useer():
 
 # Delete User
 
-@api.route('/userr/<int:int_name>', methods=['DELETE'])
-def delete_user(int_name):
-    usuario = User.query.filter_by(name= int_name).first()
+@api.route('/user/<int:id>/', methods=['DELETE'])
+def delete_user(id):
+    print(id)
+    print(User)
+    usuario = User.query.filter_by(name= "a").first()
     # print(usuario)
     db.session.delete(usuario)
     db.session.commit()
 
+    response_body = {
+        "msg": "user deleted"
+    }
+
+    return jsonify(response_body), 200
+
+
+@api.route('/user', methods=['PUT'])
+def handle_favCharacter():
+
+    body = json.loads(request.data)
+    usuario = User.query.filter_by(name= body["name"]).first()
+    print(usuario)
+    db.session.delete(usuario)
+    db.session.commit()
+
+    result =[]
+    # print(position)
     response_body = {
         "msg": "user deleted"
     }

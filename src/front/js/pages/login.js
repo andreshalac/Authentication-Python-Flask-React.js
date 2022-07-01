@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import "../../styles/home.css";
+import "../../styles/login.css";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -30,45 +30,80 @@ export const Login = () => {
   // history(`/`);
 
   return (
-    <div className="text-center mt-5">
-      <h1> login </h1>
-      <div className="login-form">
-        <input
-          type="text"
-          placeholder="email or user-name"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <button onClick={handleClick}> Login </button>
-      </div>
+    <div className="login-form-container">
 
-      <h1> Create </h1>
-      <div className="login-form">
-        <input
-          type="text"
-          placeholder="name"
-          value={nameNew}
-          onChange={(e) => setNameNew(e.target.value)}
-        />
-        <input
-          type="text"
-          placeholder="email"
-          value={emailNew}
-          onChange={(e) => setEmailNew(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={passwordNew}
-          onChange={(e) => setPasswordNew(e.target.value)}
-        />
-        <button onClick={createUser}> Login </button>
+      <div className="row row-form text-center">
+        <div className="col-md-12 col-lg-6">
+          <h1> Login </h1>
+          <div className="login-form">
+            <div className="col-12">
+              <input
+                type="text"
+                placeholder="email or user name"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+            <div className="col-12">
+              <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+
+            </div>
+            <div className="col-12">
+              <button onClick={handleClick}> Login </button>
+
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div className="col-md-12 col-lg-6">
+
+          <h1> Create </h1>
+          <div className="create-form">
+            <div className="col-12">
+              <input
+                type="text"
+                placeholder="name"
+                value={nameNew}
+                onChange={(e) => setNameNew(e.target.value)}
+              />
+
+            </div>
+            <div className="col-12">
+              <input
+                type="text"
+                placeholder="email"
+                value={emailNew}
+                onChange={(e) => setEmailNew(e.target.value)}
+              />
+
+            </div>
+            <div className="col-12">
+              <input
+                type="password"
+                placeholder="password"
+                value={passwordNew}
+                onChange={(e) => setPasswordNew(e.target.value)}
+              />
+
+            </div>
+            <div className="col-12">
+              <button onClick={createUser}> Create </button>
+            </div>
+
+
+
+
+          </div>
+        </div>
+
       </div>
     </div>
   );

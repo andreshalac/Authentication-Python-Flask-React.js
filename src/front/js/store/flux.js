@@ -6,6 +6,7 @@ const getState = ({
     return {
         store: {
             name: "",
+            email: "",
             token: "",
             message: null,
             demo: [{
@@ -41,7 +42,7 @@ const getState = ({
 
                 try {
                     const resp = await fetch(
-                        "https://3001-divrobles-sistemadeaute-cwi81tn8rme.ws-eu51.gitpod.io/api/user",
+                        "https://3001-divrobles-sistemadeaute-cwi81tn8rme.ws-eu47.gitpod.io/api/user",
                         options
                     );
 
@@ -51,7 +52,7 @@ const getState = ({
                     }
 
                     const data = await resp.json();
-                    console.log(data);
+                    console.log("hola", data);
                     return true; // Devuelve true para que se ejecute la acción que llamamos en Login
                 } catch (error) {
                     console.error("error");
@@ -74,26 +75,29 @@ const getState = ({
 
                 try {
                     const resp = await fetch(
-                        "https://3001-divrobles-sistemadeaute-cwi81tn8rme.ws-eu51.gitpod.io/api/login",
+                        "https://3001-divrobles-sistemadeaute-cwi81tn8rme.ws-eu47.gitpod.io/api/login",
                         options
                     );
 
                     if (resp.status !== 200) {
-                        alert("problem");
+                        alert("Usuario o contraseña no válios");
                         return false;
                     }
 
                     const data = await resp.json();
-                    console.log(data);
                     localStorage.setItem("token", data.access_token.token); // accedemos a la key acces_token de data
                     console.log("access", localStorage);
                     setStore({
                         token: data.access_token.token,
                         name: data.access_token.name,
+                        email: data.access_token.email,
                     });
+                    console.log("usuario", data.access_token);
                     return true; // Devuelve true para que se ejecute la acción que llamamos en Login
                 } catch (error) {
-                    console.error("error");
+                    email && password ?
+                        alert("el usuario no existe") :
+                        alert("introduzca su usuario y contraseña");
                 }
             },
 

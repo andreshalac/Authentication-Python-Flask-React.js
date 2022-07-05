@@ -12,22 +12,24 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
-# from flask_bcrypt import Bcrypt
+from flask_bcrypt import Bcrypt
 
 
-app = Flask(__name__)
-# bcrypt = Bcrypt(app)
-# pw_hash = bcrypt.generate_password_hash('hunter2')
-# bcrypt.check_password_hash(pw_hash, 'hunter2') # returns True
-#from models import Person
+
+
+
+
 
 ENV = os.getenv("FLASK_ENV")
 static_file_dir = os.path.join(os.path.dirname(os.path.realpath(__file__)), '../public/')
+app = Flask(__name__)
 app.url_map.strict_slashes = False
 
 # Setup the Flask-JWT-Extended extension
 app.config["JWT_SECRET_KEY"] = os.environ.get('JWT_SECRET') #funcion definida en admin. JWT_SECRET definido en archivo .env
 jwt = JWTManager(app)
+
+
 
 # database condiguration
 db_url = os.getenv("DATABASE_URL")
@@ -43,6 +45,9 @@ db.init_app(app)
 # Allow CORS requests to this API
 CORS(app)
 
+# Bcrypt
+bcrypt = Bcrypt(app)
+app.bcrypt = bcrypt
 
 
 # add the admin
@@ -53,6 +58,9 @@ setup_commands(app)
 
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
+
+
+
 
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
@@ -80,3 +88,6 @@ def serve_any_other_file(path):
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
+
+
+

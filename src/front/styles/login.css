@@ -2,6 +2,7 @@
     min-height: 90vh;
     padding-top: 5%;
     background-color: rgb(41, 116, 255);
+    color: white;
 }
 
 .row-form {
@@ -21,7 +22,7 @@
     border: none;
     border-bottom: 1px solid black;
     margin: 1.5%;
-    padding-left: 5%;
+    padding-left: 3%;
 }
 
 .row-form div[class*="col"] input:focus {
